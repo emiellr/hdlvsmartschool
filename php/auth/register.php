@@ -60,6 +60,11 @@ $conn->query($sql);
 // Close connection
 $conn->close();
 
-// Return one-time-pass
-echo $otp;
+// Create object for return values
+$returnData = new stdClass();
+$returnData["id"] = $id;
+$returnData["otp"] = $otp;
+
+// Return data
+echo json_encode($returnData);
 ?>
