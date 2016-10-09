@@ -1,18 +1,15 @@
 <?php
-// Define login info
-$servername = "localhost";
-$username = "webapp";
-$password = "***";
-$database = "duursmait";
-
 // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+require("../utils/mysql/connect.php");
+$conn = connect();
 
-// Check connection
-if ($conn->connect_error) {
-  // Return failure
-  die("ERROR MYSQL connection error, details:" . $conn->connect_error . "(report to @thomasduursma on Slack)");
+// Prevent SQL injection
+require("../utils/mysql/detectInjection.php")
+if(detectInjection($_GET["otp"] . $_GET["id"])) {
+  die("false");
 }
+// Create object for return values
+$returnData = new stdClass();
 
 // Hash password
 $hash = password_hash($_GET["password"], PASSWORD_BCRYPT);
