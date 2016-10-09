@@ -7,7 +7,7 @@ $conn = connect();
 // Prevent SQL injection
 require("utils/mysql/detectInjection.php");
 
-if(detectInjection($_GET["dataType"] . $_GET["data"] . $_GET["deviceId"])) {
+if(detectInjection($_GET["date"] . $_GET["startDate"] . $_GET["endDate"])) {
   die "false";
 }
 
