@@ -1,19 +1,11 @@
 <?php
-$servername = "localhost";
-$username = "webapp";
-$password = "***";
-$database = "duursmait";
 // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-  // Return failure
-  die("ERROR MYSQL connection error, details:" . $conn->connect_error . "(report to @thomasduursma on Slack)");
-}
+require("../utils/mysql/connect.php");
+$conn = connect();
 
 // Prevent SQL injection
-if (strpos($_GET["username"] . $_GET["password"], ";")) {
+require("../utils/mysql/detectInjection.php")
+if(detectInjection($_GET["username"] . $_GET["password"])) {
   die("false");
 }
 
@@ -29,8 +21,7 @@ $sql = "SELECT id, hash FROM users WHERE username='$username'";
 $query = $conn->query($sql);
 
 // Process query
-if($query->num_rows > 0) {
-  $row = $query->fetch_assoc();
+if($row = $query->fetch_assoc();) {
   $hash = $row["hash"];
   $id = $row["id"];
 } else {
@@ -70,4 +61,3 @@ $conn->close();
 
 // Return data
 echo json_encode($returnData);
-?>
