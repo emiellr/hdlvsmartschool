@@ -31,7 +31,7 @@ $defaultRole = $query->fetch_assoc()['value'];
 
 // Construct SQL
 $username = $_GET["username"];
-$sql = "INSERT INTO users (username, password, role) VALUES ('$username', '$hash', '$defaultRole')";
+$sql = "INSERT INTO users (username, hash, role) VALUES ('$username', '$hash', '$defaultRole')";
 $id = $conn->insert_id;
 
 // Execute SQL
