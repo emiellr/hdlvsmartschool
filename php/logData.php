@@ -8,7 +8,7 @@ $conn = connect();
 require("utils/mysql/detectInjection.php");
 
 if(detectInjection()) {
-  die "false";
+  die("false");
 }
 
 // Store data
