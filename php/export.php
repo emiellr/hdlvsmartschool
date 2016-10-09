@@ -1,10 +1,14 @@
 <?php
+// Create connection
 require("utils/mysql/connect.php");
+
 $conn = connect();
 
 // Prevent SQL injection
-if (strpos($_GET["date"] . $_GET["startDate"] . $_GET["endDate"], ";")) {
-  die("false");
+require("utils/mysql/detectInjection.php");
+
+if(detectInjection($_GET["dataType"] . $_GET["data"] . $_GET["deviceId"])) {
+  die "false";
 }
 
 // Construct SQL
