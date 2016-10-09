@@ -1,20 +1,14 @@
 <?php
-$servername = "localhost";
-$username = "webapp";
-$password = "***";
-$database = "duursmait";
 // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+require("utils/mysql/connect.php");
 
-// Check connection
-if ($conn->connect_error) {
-  // Return failure
-  die("false");
-}
+$conn = connect();
 
 // Prevent SQL injection
-if (strpos($_GET["dataType"] . $_GET["data"] . $_GET["deviceId"], ";")) {
-  die("false");
+require("utils/mysql/detectInjection.php");
+
+if(detectInjection()) {
+  die "false";
 }
 
 // Store data
