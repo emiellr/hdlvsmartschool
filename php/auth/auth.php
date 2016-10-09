@@ -1,8 +1,9 @@
 <?php
-function auth($otp, $id) {
+function auth($otp, $id, $conn) {
   // Get default values
   $otp = $otp ? $otp:$GLOBALS["otp"];
   $id = $id ? $id:$GLOBALS["id"];
+  $conn = $conn ? $conn:$GLOBALS["conn"];
   
   // Construct SQL
   $sql = "SELECT hash FROM otp WHERE id=$id and date > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
