@@ -1,16 +1,6 @@
 <?php
-$servername = "localhost";
-$username = "webapp";
-$password = "***";
-$database = "duursmait";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-  // Return failure
-  die("ERROR MYSQL connection error, details:" . $conn->connect_error . "(report to @thomasduursma on Slack)");
-}
+require("utils/mysql/connect.php");
+$conn = connect();
 
 // Prevent SQL injection
 if (strpos($_GET["date"] . $_GET["startDate"] . $_GET["endDate"], ";")) {
@@ -37,14 +27,12 @@ while($row = $query->fetch_assoc()) {
 }
 
 // Get the file name
-$fname = $_GET['fname'];
-if (!$fname) {
+if (!$fname = $_GET["fname"]) {
   $fname = date("Y-m-d");
 }
 
 // Create file
-$f = fopen($fname . '.txt', "w");
-fwrite($f, json_encode($result));
+fwrite($f = fopen($fname . '.txt', "w"), json_encode($result));
 fclose($f);
 
 // Delete data from database
@@ -58,4 +46,3 @@ echo true;
 // Close connection
 $conn->close();
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
