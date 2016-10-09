@@ -8,7 +8,7 @@ $conn = connect();
 require("utils/mysql/detectInjection.php");
 
 if(detectInjection($_GET["date"] . $_GET["startDate"] . $_GET["endDate"])) {
-  die "false";
+  die("false");
 }
 
 // Construct SQL
